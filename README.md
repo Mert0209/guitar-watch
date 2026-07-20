@@ -2,13 +2,20 @@
 
 Dieses kleine Projekt durchsucht automatisch mehrmals täglich:
 
-1. **Reverb** (Marktplatz-Suche, international)
-2. **eBay** (US + Deutschland)
-3. **Shopify-Läden** (Music Zoo, Willcutt, Tone Shop, Walt Grace,
+1. **Reverb** (offizielle API – international, zuverlässig; braucht einen
+   kostenlosen Token, siehe unten)
+2. **Shopify-Läden** (Music Zoo, Willcutt, Tone Shop, Walt Grace,
    Chicago Music Exchange – findet auch neue Angebote)
+3. **Große Plattformen & eBay** (Thomann, Music Store, Catawiki,
+   eBay US/DE): grober Treffer-Check plus fertiger Such-Link zum selbst
+   Nachschauen
 4. **Feste Händler-Seiten** (z. B. Peach Guitars)
-5. **Große Plattformen** (Thomann, Music Store, Catawiki): grober
-   Treffer-Check plus fertiger Such-Link zum selbst Nachschauen
+
+> **Warum manche Seiten nur als Link kommen:** Reverb, eBay, Music Store
+> und Catawiki blockieren automatische Zugriffe von Servern (HTTP 403).
+> Reverb lösen wir sauber über die offizielle API. Für eBay, Music Store
+> und Catawiki bekommst du einen zuverlässigen Such-Link, den du mit
+> einem Klick selbst prüfst.
 
 ...nach der Gibson Custom Shop Tony Iommi "Monkey" SG (Rechtshänder) und
 schreibt die Treffer in `results.md`. Neue Treffer seit dem letzten Lauf
@@ -99,7 +106,42 @@ das.
 
 ---
 
-## Zeitplan ändern
+## Reverb-Token einrichten (für echte Reverb-Treffer)
+
+Ohne Token gibt das Skript für Reverb nur einen Such-Link aus. Mit einem
+kostenlosen Token liefert Reverb dir echte Angebote automatisch. So geht's:
+
+### Teil 1: Token bei Reverb erzeugen
+
+1. Bei https://reverb.com kostenlos registrieren / einloggen.
+2. Oben rechts aufs Profil-Menü → **"My Profile"** (Mein Profil).
+3. Reiter **"API & Integrations"** öffnen.
+4. **"Generate New Token"** klicken.
+5. Namen vergeben (z. B. `guitar-watch`).
+6. Als Scope (Berechtigung) reicht **"public"** (Read publicly available
+   data) – nur das ankreuzen, mehr braucht das Skript nicht.
+7. **"Generate Token"**. Es erscheint eine lange Zeichenfolge – das ist
+   dein Token. **Kopiere ihn jetzt** (er wird nur einmal vollständig
+   angezeigt). Reverb-Tokens laufen nicht ab.
+
+### Teil 2: Token sicher in GitHub hinterlegen
+
+Der Token ist wie ein Passwort – er kommt NICHT in den Code, sondern in
+GitHubs verschlüsselten "Secrets"-Speicher:
+
+1. In deinem Repo oben auf **"Settings"** (Zahnrad-Reiter).
+2. Links im Menü ganz unten: **"Secrets and variables"** → **"Actions"**.
+3. Grüner Button **"New repository secret"**.
+4. Bei **"Name"** exakt eintippen: `REVERB_TOKEN`
+   (genau so geschrieben, GROSS, mit Unterstrich – das erwartet das Skript).
+5. Bei **"Secret"** deinen kopierten Token einfügen.
+6. **"Add secret"**.
+
+Fertig. Beim nächsten Lauf benutzt das Skript den Token automatisch. Der
+Workflow gibt ihn über `env: REVERB_TOKEN: ${{ secrets.REVERB_TOKEN }}`
+an das Skript weiter (steht schon in der `watch.yml`).
+
+
 
 Standardmäßig läuft die Suche **3× täglich** (04:00 / 10:00 / 16:00 UTC,
 also im Sommer ca. 06:00 / 12:00 / 18:00 deutscher Zeit). Wenn du das

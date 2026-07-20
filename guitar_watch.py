@@ -6,14 +6,17 @@ Durchsucht mehrere Quellen nach einem bestimmten Gitarren-Modell und schreibt
 neue Treffer in results.md / results.json.
 
 Quellen:
-  1. Reverb.com Marktplatz-Suche (liest das eingebettete "apollo-state" JSON
-     aus der Suchergebnis-Seite aus) – international
-  2. eBay-Suche (US + DE), parst die klassische Ergebnisliste
-  3. Shopify-Shops (Music Zoo, Willcutt, Tone Shop, Walt Grace, Chicago
+  1. Reverb – offizielle API (braucht kostenlosen Token in REVERB_TOKEN);
+     ohne Token nur Such-Link. International.
+  2. Shopify-Shops (Music Zoo, Willcutt, Tone Shop, Walt Grace, Chicago
      Music Exchange) über die /search/suggest.json-Schnittstelle
+  3. Große Plattformen & eBay (Thomann, Music Store, Catawiki, eBay US/DE):
+     Best-Effort-Check plus fertiger Such-Link zum manuellen Nachschauen
   4. Feste Händler-Einzelseiten (z.B. Peach Guitars)
-  5. Große Plattformen (Thomann, Music Store, Catawiki): Best-Effort-Check
-     plus fertiger Such-Link zum manuellen Nachschauen
+
+Hintergrund: Reverb, eBay, Music Store und Catawiki blockieren
+automatische Roh-Zugriffe (HTTP 403). Deshalb läuft Reverb über die
+offizielle API, und die anderen liefern einen zuverlässigen Such-Link.
 
 WICHTIG:
 - Kein Login, keine API-Keys nötig -> läuft "out of the box" in GitHub Actions.
@@ -27,6 +30,7 @@ WICHTIG:
 import json
 import re
 import sys
+import os
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -45,19 +49,16 @@ MUST_INCLUDE = ["iommi", "monkey"]
 # Begriffe, die NICHT vorkommen dürfen (schließt Linkshänder-Modelle aus)
 MUST_EXCLUDE = ["left-handed", "left handed", "lefty", " lh ", "(lh)"]
 
-# Reverb Marktplatz-Suche (kein API-Key nötig, wir lesen die HTML-Seite)
-REVERB_SEARCH_URL = (
+# Reverb – OFFIZIELLE API (wird nicht blockiert, im Gegensatz zum Scraping).
+# Braucht einen kostenlosen persönlichen Token, den GitHub Actions als
+# geheime Umgebungsvariable REVERB_TOKEN bereitstellt (siehe README).
+# Ohne Token schreibt das Skript ersatzweise nur einen Such-Link.
+REVERB_API_URL = "https://api.reverb.com/api/listings"
+REVERB_QUERY = "Tony Iommi Monkey SG"
+# Menschlicher Such-Link als Fallback / zum manuellen Nachschauen:
+REVERB_WEB_SEARCH = (
     "https://reverb.com/marketplace?query=Tony+Iommi+Monkey+SG&product_type=electric-guitars"
 )
-
-# eBay-Suche – mehrere Länder-Seiten für internationale Abdeckung.
-# Der Suchbegriff und die Zerlegung sind bei allen gleich, nur die Domain
-# unterscheidet sich. Weitere Länder einfach ergänzen (z.B. ebay.co.uk).
-EBAY_SITES = [
-    {"name": "eBay US", "domain": "www.ebay.com"},
-    {"name": "eBay DE", "domain": "www.ebay.de"},
-]
-EBAY_QUERY = "Gibson Tony Iommi Monkey SG"
 
 # ---------------------------------------------------------------------------
 # Shopify-Shops: Viele Gitarrenhändler laufen technisch auf Shopify. Diese
@@ -119,6 +120,18 @@ GENERIC_SEARCH_SITES = [
         "query": "Iommi Monkey SG",
         "no_results_markers": ["keine ergebnisse", "keine treffer", "no results found", "0 ergebnisse"],
     },
+    {
+        "name": "eBay US",
+        "search_url": "https://www.ebay.com/sch/i.html?_nkw={q}",
+        "query": "Gibson Tony Iommi Monkey SG",
+        "no_results_markers": ["0 results", "0 ergebnisse", "keine ergebnisse", "no exact matches"],
+    },
+    {
+        "name": "eBay DE",
+        "search_url": "https://www.ebay.de/sch/i.html?_nkw={q}",
+        "query": "Gibson Tony Iommi Monkey SG",
+        "no_results_markers": ["0 ergebnisse", "keine ergebnisse", "0 results", "keine exakten treffer"],
+    },
     # Weitere große Such-Seiten hier ergänzen (Muster wie oben):
     # {"name": "...", "search_url": "https://.../search?q={q}", "query": "...",
     #  "no_results_markers": ["..."]},
@@ -137,7 +150,12 @@ HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-    )
+    ),
+    "Accept": (
+        "text/html,application/xhtml+xml,application/xml;q=0.9,"
+        "image/avif,image/webp,*/*;q=0.8"
+    ),
+    "Accept-Language": "de-DE,de;q=0.9,en;q=0.8",
 }
 
 RESULTS_JSON = Path(__file__).parent / "results.json"
@@ -172,80 +190,69 @@ def matches_filters(title: str) -> bool:
 
 def search_reverb() -> list[Hit]:
     hits: list[Hit] = []
+    token = os.environ.get("REVERB_TOKEN", "").strip()
+
+    # Ohne Token: nur Such-Link ausgeben, damit du trotzdem klicken kannst.
+    if not token:
+        print("[reverb] Kein REVERB_TOKEN gesetzt – gebe nur Such-Link aus.", file=sys.stderr)
+        hits.append(
+            Hit(
+                source="Reverb",
+                title="Reverb – Suche „Tony Iommi Monkey SG“",
+                url=REVERB_WEB_SEARCH,
+                note="Kein API-Token hinterlegt – Link manuell prüfen (siehe README)",
+            )
+        )
+        return hits
+
+    api_headers = {
+        "Accept": "application/hal+json",
+        "Accept-Version": "3.0",
+        "Authorization": f"Bearer {token}",
+    }
+    params = {"query": REVERB_QUERY, "product_type": "electric-guitars", "per_page": "50"}
+
     try:
-        resp = requests.get(REVERB_SEARCH_URL, headers=HEADERS, timeout=20)
+        resp = requests.get(REVERB_API_URL, headers=api_headers, params=params, timeout=25)
         resp.raise_for_status()
-    except requests.RequestException as e:
-        print(f"[reverb] Abruf fehlgeschlagen: {e}", file=sys.stderr)
+        data = resp.json()
+    except (requests.RequestException, json.JSONDecodeError) as e:
+        print(f"[reverb] API-Abruf fehlgeschlagen: {e}", file=sys.stderr)
+        hits.append(
+            Hit(
+                source="Reverb",
+                title="Reverb – Suche „Tony Iommi Monkey SG“",
+                url=REVERB_WEB_SEARCH,
+                note="API-Abruf fehlgeschlagen – Link manuell prüfen",
+            )
+        )
         return hits
 
-    soup = BeautifulSoup(resp.text, "html.parser")
-    meta = soup.find("meta", attrs={"name": "apollo-state"})
-    if not meta or not meta.get("content"):
-        print("[reverb] Kein apollo-state gefunden (Seitenstruktur evtl. geändert)", file=sys.stderr)
-        return hits
-
-    try:
-        state = json.loads(meta["content"])
-    except json.JSONDecodeError as e:
-        print(f"[reverb] JSON-Parse-Fehler: {e}", file=sys.stderr)
-        return hits
-
-    for key, obj in state.items():
-        if not key.startswith("Listing:id:"):
-            continue
-        title = obj.get("title") or ""
+    for listing in data.get("listings", []):
+        title = listing.get("title", "")
         if not matches_filters(title):
             continue
-        slug = obj.get("slug", "")
-        listing_id = obj.get("id", "")
-        url = f"https://reverb.com/item/{listing_id}-{slug}" if slug else ""
+        # Web-Link zum Angebot
+        url = ""
+        links = listing.get("_links", {}) or {}
+        web = links.get("web", {}) or {}
+        url = web.get("href", "")
+        # Preis
         price = ""
-        pricing = obj.get("pricing") or {}
-        buyer_price = pricing.get("buyerPrice") or {}
-        price = buyer_price.get("display", "")
-        state_desc = obj.get("stateDescription", "")
-        hits.append(Hit(source="Reverb", title=title, url=url, price=price, note=state_desc))
+        price_obj = listing.get("price", {}) or {}
+        price = price_obj.get("display", "")
+        # Verfügbarkeit
+        state = (listing.get("state", {}) or {}).get("slug", "")
+        note = "verfügbar" if state == "live" else (state or "")
+        hits.append(Hit(source="Reverb", title=title, url=url, price=price, note=note))
 
     return hits
 
 
 # ---------------------------------------------------------------------------
-# Quelle 2: eBay
+# (eBay wird jetzt über die Such-Link-Quellen in GENERIC_SEARCH_SITES
+#  abgedeckt, da eBay automatische Scraping-Zugriffe blockiert.)
 # ---------------------------------------------------------------------------
-
-def search_ebay() -> list[Hit]:
-    hits: list[Hit] = []
-    query = quote_plus(EBAY_QUERY)
-    for site in EBAY_SITES:
-        url = f"https://{site['domain']}/sch/i.html?_nkw={query}&_sacat=0"
-        try:
-            resp = requests.get(url, headers=HEADERS, timeout=20)
-            resp.raise_for_status()
-        except requests.RequestException as e:
-            print(f"[{site['name']}] Abruf fehlgeschlagen: {e}", file=sys.stderr)
-            continue
-
-        soup = BeautifulSoup(resp.text, "html.parser")
-        items = soup.select("li.s-item")
-        for item in items:
-            title_el = item.select_one(".s-item__title")
-            link_el = item.select_one("a.s-item__link")
-            price_el = item.select_one(".s-item__price")
-            if not title_el or not link_el:
-                continue
-            title = title_el.get_text(strip=True)
-            if not matches_filters(title):
-                continue
-            hits.append(
-                Hit(
-                    source=site["name"],
-                    title=title,
-                    url=link_el.get("href", ""),
-                    price=price_el.get_text(strip=True) if price_el else "",
-                )
-            )
-    return hits
 
 
 # ---------------------------------------------------------------------------
@@ -421,7 +428,6 @@ def main() -> None:
 
     all_hits: list[Hit] = []
     all_hits += search_reverb()
-    all_hits += search_ebay()
     all_hits += search_shopify_shops()
     all_hits += search_generic_sites()
     all_hits += check_known_dealers()

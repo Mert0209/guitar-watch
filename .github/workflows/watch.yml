@@ -4,7 +4,9 @@ on:
   schedule:
     # Läuft täglich um 07:00 UTC (≈ 08:00/09:00 deutscher Zeit, je nach Sommerzeit).
     # Format: Minute Stunde Tag Monat Wochentag
-    - cron: "0 7 * * *"
+    - cron: "0 4 * * *"
+    - cron: "0 10 * * *"
+    - cron: "0 16 * * *"
   workflow_dispatch: {}
     # Damit kannst du den Lauf auch manuell im "Actions"-Tab per Klick starten,
     # ohne auf den Zeitplan zu warten.

@@ -46,8 +46,28 @@ from bs4 import BeautifulSoup
 # Suchbegriffe, die ALLE (case-insensitive) im Titel vorkommen müssen
 MUST_INCLUDE = ["iommi", "monkey"]
 
-# Begriffe, die NICHT vorkommen dürfen (schließt Linkshänder-Modelle aus)
-MUST_EXCLUDE = ["left-handed", "left handed", "lefty", " lh ", "(lh)"]
+# Begriffe, die NICHT vorkommen dürfen. Bewusst LEER: Linkshänder werden
+# absichtlich mit angezeigt (falls jemand ohne Hand-Angabe inseriert).
+# Zum Ausblenden bestimmter Begriffe hier ergänzen, z.B. ["lefty"].
+MUST_EXCLUDE = []
+
+# --- Preis-Filter & Währung ------------------------------------------------
+# Treffer mit bekanntem Preis UNTER dieser Schwelle (in Euro) werden
+# ausgeblendet. So fliegen die günstigen Serienmodelle (Gibson USA /
+# Epiphone) raus, die echte Custom-Shop-Edition (~15.000 €+) bleibt drin.
+# Treffer OHNE Preis (reine Such-Links) werden davon NICHT betroffen.
+MIN_PRICE_EUR = 8000
+
+# Ungefähre Wechselkurse -> Euro. Nur für die grobe Umrechnung/Filterung.
+# Bei Bedarf anpassen (Kurse schwanken); für einen Preis-Filter reicht das.
+CURRENCY_RATES_TO_EUR = {
+    "EUR": 1.0,
+    "USD": 0.92,
+    "GBP": 1.17,
+    "CAD": 0.68,
+    "AUD": 0.60,
+}
+# ---------------------------------------------------------------------------
 
 # Reverb – OFFIZIELLE API (wird nicht blockiert, im Gegensatz zum Scraping).
 # Braucht einen kostenlosen persönlichen Token, den GitHub Actions als
@@ -167,12 +187,69 @@ class Hit:
     source: str
     title: str
     url: str
-    price: str = ""
+    price: str = ""          # fertig formatierter Anzeigetext (wird berechnet)
     note: str = ""
+    amount: float | None = None   # numerischer Betrag in Originalwährung
+    currency: str = ""            # z.B. "USD", "EUR"
 
     def key(self) -> str:
         # Eindeutiger Schlüssel für "haben wir das schon gesehen?"
         return f"{self.source}|{self.url}"
+
+
+def parse_amount(value) -> float | None:
+    """Wandelt verschiedene Preis-Schreibweisen in eine Zahl um.
+    Versteht '28000.00', '15.564,64', '2399' usw."""
+    if value is None:
+        return None
+    s = str(value).strip()
+    if not s:
+        return None
+    # Nur Ziffern, Punkt, Komma behalten
+    s = re.sub(r"[^0-9.,]", "", s)
+    if not s:
+        return None
+    # Deutsches Format "15.564,64" -> Punkt = Tausender, Komma = Dezimal
+    if "," in s and "." in s:
+        s = s.replace(".", "").replace(",", ".")
+    elif "," in s:
+        s = s.replace(",", ".")
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def to_eur(amount: float | None, currency: str) -> float | None:
+    if amount is None:
+        return None
+    rate = CURRENCY_RATES_TO_EUR.get((currency or "EUR").upper())
+    if rate is None:
+        return None  # unbekannte Währung -> nicht umrechenbar
+    return amount * rate
+
+
+def passes_min_price(hit: Hit) -> bool:
+    """True, wenn der Treffer angezeigt werden soll. Treffer ohne bekannten
+    Preis (Such-Links) kommen immer durch."""
+    if hit.amount is None:
+        return True
+    eur = to_eur(hit.amount, hit.currency)
+    if eur is None:
+        return True  # unbekannte Währung: lieber zeigen als verschlucken
+    return eur >= MIN_PRICE_EUR
+
+
+def format_price(hit: Hit) -> str:
+    """Baut den Anzeigetext: '≈ 25.760 € (Original: 28.000 USD)'."""
+    if hit.amount is None:
+        return hit.price  # evtl. schon vorbelegter Text
+    eur = to_eur(hit.amount, hit.currency)
+    orig = f"{hit.amount:,.0f} {hit.currency}".replace(",", ".")
+    if eur is None:
+        return orig
+    eur_str = f"{eur:,.0f}".replace(",", ".")
+    return f"≈ {eur_str} € (Original: {orig})"
 
 
 def matches_filters(title: str) -> bool:
@@ -233,18 +310,20 @@ def search_reverb() -> list[Hit]:
         if not matches_filters(title):
             continue
         # Web-Link zum Angebot
-        url = ""
         links = listing.get("_links", {}) or {}
         web = links.get("web", {}) or {}
         url = web.get("href", "")
-        # Preis
-        price = ""
+        # Preis (numerischen Betrag + Währung nehmen, nicht den Anzeigetext)
         price_obj = listing.get("price", {}) or {}
-        price = price_obj.get("display", "")
+        amount = parse_amount(price_obj.get("amount"))
+        currency = price_obj.get("currency", "") or ""
         # Verfügbarkeit
         state = (listing.get("state", {}) or {}).get("slug", "")
         note = "verfügbar" if state == "live" else (state or "")
-        hits.append(Hit(source="Reverb", title=title, url=url, price=price, note=note))
+        hits.append(
+            Hit(source="Reverb", title=title, url=url, note=note,
+                amount=amount, currency=currency)
+        )
 
     return hits
 
@@ -287,9 +366,8 @@ def search_shopify_shops() -> list[Hit]:
             # Shopify liefert oft nur den Pfad -> vollständige URL bauen
             if handle_url.startswith("/"):
                 handle_url = f"https://{shop['domain']}{handle_url}"
-            price = ""
-            if p.get("price"):
-                price = str(p.get("price"))
+            amount = parse_amount(p.get("price"))
+            currency = shop.get("currency", "USD")
             available = p.get("available")
             note = "" if available is None else ("verfügbar" if available else "nicht verfügbar")
             hits.append(
@@ -297,8 +375,9 @@ def search_shopify_shops() -> list[Hit]:
                     source=shop["name"],
                     title=title,
                     url=handle_url,
-                    price=price,
                     note=note,
+                    amount=amount,
+                    currency=currency,
                 )
             )
     return hits
@@ -432,8 +511,20 @@ def main() -> None:
     all_hits += search_generic_sites()
     all_hits += check_known_dealers()
 
+    # Preis-Filter: zu günstige Treffer (Serienmodelle) ausblenden
+    before = len(all_hits)
+    all_hits = [h for h in all_hits if passes_min_price(h)]
+    removed = before - len(all_hits)
+
+    # Anzeige-Preis (Euro ca. + Original) für jeden Treffer berechnen
+    for h in all_hits:
+        h.price = format_price(h)
+
     new_count = sum(1 for h in all_hits if h.key() not in previous_keys)
-    print(f"Gefunden: {len(all_hits)} Treffer insgesamt, davon {new_count} neu.")
+    print(
+        f"Gefunden: {len(all_hits)} Treffer (angezeigt), "
+        f"{removed} wegen Mindestpreis ausgeblendet, davon {new_count} neu."
+    )
 
     write_results(all_hits, previous_keys)
 

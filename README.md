@@ -156,6 +156,30 @@ Plattformen deine IP zeitweise sperren.
 
 ---
 
+## Preis-Filter & Währung anpassen
+
+Ganz oben in `guitar_watch.py` stehen zwei Einstellungen:
+
+```python
+MIN_PRICE_EUR = 8000
+```
+Treffer mit bekanntem Preis **unter** diesem Euro-Wert werden ausgeblendet
+(so fliegen die günstigen Serienmodelle raus). Reine Such-Links (ohne
+Preis) sind davon nicht betroffen und erscheinen immer. Zahl einfach
+ändern, um strenger/lockerer zu filtern.
+
+```python
+CURRENCY_RATES_TO_EUR = {"EUR": 1.0, "USD": 0.92, "GBP": 1.17, ...}
+```
+Ungefähre Wechselkurse für die Umrechnung in Euro. Die Preise werden als
+`≈ 25.760 € (Original: 28.000 USD)` angezeigt. Die Kurse sind grobe
+Richtwerte – für einen Preis-Filter reicht das; bei Bedarf anpassen.
+
+**Linkshänder:** Werden bewusst mit angezeigt. Falls du sie doch
+ausblenden willst, trag in `MUST_EXCLUDE` z. B. `["lefty", "lefthand"]` ein.
+
+---
+
 ## Weitere Shops hinzufügen
 
 Es gibt zwei Wege, je nachdem, wie der Shop technisch gebaut ist:
@@ -218,6 +242,6 @@ Das Skript ruft nur öffentlich zugängliche Suchergebnis-Seiten ab (wie
 ein normaler Browser-Aufruf) und speichert nur Titel/Preis/Link — kein
 Login, keine automatisierten Käufe. Trotzdem: Nutzungsbedingungen der
 jeweiligen Plattformen gelten weiterhin; bei sehr hoher Abruffrequenz
-(hier: 1×/Tag, also unkritisch) können Plattformen IP-Sperren
-aussprechen. Der aktuelle Zeitplan (täglich) ist bewusst niedrig
+(hier: 3×/Tag, also unkritisch) können Plattformen IP-Sperren
+aussprechen. Der aktuelle Zeitplan (3× täglich) ist bewusst niedrig
 gehalten.

@@ -7,10 +7,13 @@ neue Treffer in results.md / results.json.
 
 Quellen:
   1. Reverb.com Marktplatz-Suche (liest das eingebettete "apollo-state" JSON
-     aus der Suchergebnis-Seite aus)
-  2. eBay-Suche (parst die klassische Ergebnisliste)
-  3. Eine feste Liste bekannter Gitarrenshops/Direktlinks, die regelmäßig
-     erneut geprüft werden (z.B. Music Zoo, Walt Grace Vintage, Guitar-Place)
+     aus der Suchergebnis-Seite aus) – international
+  2. eBay-Suche (US + DE), parst die klassische Ergebnisliste
+  3. Shopify-Shops (Music Zoo, Willcutt, Tone Shop, Walt Grace, Chicago
+     Music Exchange) über die /search/suggest.json-Schnittstelle
+  4. Feste Händler-Einzelseiten (z.B. Peach Guitars)
+  5. Große Plattformen (Thomann, Music Store, Catawiki): Best-Effort-Check
+     plus fertiger Such-Link zum manuellen Nachschauen
 
 WICHTIG:
 - Kein Login, keine API-Keys nötig -> läuft "out of the box" in GitHub Actions.
@@ -27,6 +30,7 @@ import sys
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import quote_plus
 
 import requests
 from bs4 import BeautifulSoup
@@ -46,10 +50,14 @@ REVERB_SEARCH_URL = (
     "https://reverb.com/marketplace?query=Tony+Iommi+Monkey+SG&product_type=electric-guitars"
 )
 
-# eBay-Suche
-EBAY_SEARCH_URL = (
-    "https://www.ebay.com/sch/i.html?_nkw=Gibson+Tony+Iommi+Monkey+SG+Custom+Shop&_sacat=0"
-)
+# eBay-Suche – mehrere Länder-Seiten für internationale Abdeckung.
+# Der Suchbegriff und die Zerlegung sind bei allen gleich, nur die Domain
+# unterscheidet sich. Weitere Länder einfach ergänzen (z.B. ebay.co.uk).
+EBAY_SITES = [
+    {"name": "eBay US", "domain": "www.ebay.com"},
+    {"name": "eBay DE", "domain": "www.ebay.de"},
+]
+EBAY_QUERY = "Gibson Tony Iommi Monkey SG"
 
 # ---------------------------------------------------------------------------
 # Shopify-Shops: Viele Gitarrenhändler laufen technisch auf Shopify. Diese
@@ -82,6 +90,38 @@ KNOWN_DEALER_PAGES = [
         "url": "https://www.peachguitars.com/gibson-custom-tony-iommi-monkey-1964-sg-special-aged-and-signed-pair.htm",
     },
     # Weitere Einzelseiten hier ergänzen: {"name": "...", "url": "..."}
+]
+
+# Große Plattformen (Thomann, Music Store, Catawiki, ...): jede ist anders
+# gebaut, deshalb KEIN Präzisions-Parser, sondern ein robuster Best-Effort:
+# Wir rufen die Suchseite auf, prüfen grob, ob ein Treffer wahrscheinlich ist,
+# und schreiben in JEDEM Fall den fertigen Such-Link in die Ergebnisdatei,
+# damit du ihn mit einem Klick selbst prüfen kannst.
+#
+# "{q}" im search_url wird durch den URL-kodierten Suchbegriff ersetzt.
+# "no_results_markers": Texte, die auf einer Treffer-LEEREN Seite stehen.
+GENERIC_SEARCH_SITES = [
+    {
+        "name": "Thomann",
+        "search_url": "https://www.thomann.de/de/search_dir.html?sw={q}",
+        "query": "Iommi Monkey",
+        "no_results_markers": ["keine artikel", "keine ergebnisse", "no results", "0 artikel"],
+    },
+    {
+        "name": "Music Store",
+        "search_url": "https://www.musicstore.de/de_DE/EUR/search?text={q}",
+        "query": "Iommi Monkey",
+        "no_results_markers": ["keine ergebnisse", "keine treffer", "no results", "0 treffer"],
+    },
+    {
+        "name": "Catawiki",
+        "search_url": "https://www.catawiki.com/de/s?q={q}",
+        "query": "Iommi Monkey SG",
+        "no_results_markers": ["keine ergebnisse", "keine treffer", "no results found", "0 ergebnisse"],
+    },
+    # Weitere große Such-Seiten hier ergänzen (Muster wie oben):
+    # {"name": "...", "search_url": "https://.../search?q={q}", "query": "...",
+    #  "no_results_markers": ["..."]},
 ]
 
 SOLD_OUT_MARKERS = [
@@ -176,32 +216,35 @@ def search_reverb() -> list[Hit]:
 
 def search_ebay() -> list[Hit]:
     hits: list[Hit] = []
-    try:
-        resp = requests.get(EBAY_SEARCH_URL, headers=HEADERS, timeout=20)
-        resp.raise_for_status()
-    except requests.RequestException as e:
-        print(f"[ebay] Abruf fehlgeschlagen: {e}", file=sys.stderr)
-        return hits
+    query = quote_plus(EBAY_QUERY)
+    for site in EBAY_SITES:
+        url = f"https://{site['domain']}/sch/i.html?_nkw={query}&_sacat=0"
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=20)
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            print(f"[{site['name']}] Abruf fehlgeschlagen: {e}", file=sys.stderr)
+            continue
 
-    soup = BeautifulSoup(resp.text, "html.parser")
-    items = soup.select("li.s-item")
-    for item in items:
-        title_el = item.select_one(".s-item__title")
-        link_el = item.select_one("a.s-item__link")
-        price_el = item.select_one(".s-item__price")
-        if not title_el or not link_el:
-            continue
-        title = title_el.get_text(strip=True)
-        if not matches_filters(title):
-            continue
-        hits.append(
-            Hit(
-                source="eBay",
-                title=title,
-                url=link_el.get("href", ""),
-                price=price_el.get_text(strip=True) if price_el else "",
+        soup = BeautifulSoup(resp.text, "html.parser")
+        items = soup.select("li.s-item")
+        for item in items:
+            title_el = item.select_one(".s-item__title")
+            link_el = item.select_one("a.s-item__link")
+            price_el = item.select_one(".s-item__price")
+            if not title_el or not link_el:
+                continue
+            title = title_el.get_text(strip=True)
+            if not matches_filters(title):
+                continue
+            hits.append(
+                Hit(
+                    source=site["name"],
+                    title=title,
+                    url=link_el.get("href", ""),
+                    price=price_el.get_text(strip=True) if price_el else "",
+                )
             )
-        )
     return hits
 
 
@@ -251,6 +294,46 @@ def search_shopify_shops() -> list[Hit]:
                     note=note,
                 )
             )
+    return hits
+
+
+# ---------------------------------------------------------------------------
+# Quelle 5: Große Plattformen (Thomann, Music Store, Catawiki) – Best-Effort
+# ---------------------------------------------------------------------------
+
+def search_generic_sites() -> list[Hit]:
+    """Ruft die Suchseite grosser Plattformen auf, prueft grob auf Treffer
+    und liefert IMMER den Such-Link zum manuellen Nachschauen zurueck."""
+    hits: list[Hit] = []
+    for site in GENERIC_SEARCH_SITES:
+        query = quote_plus(site["query"])
+        search_url = site["search_url"].replace("{q}", query)
+
+        note = "Such-Link – bitte manuell prüfen"
+        try:
+            resp = requests.get(search_url, headers=HEADERS, timeout=25)
+            resp.raise_for_status()
+            page = resp.text.lower()
+
+            has_all_terms = all(term in page for term in MUST_INCLUDE)
+            has_no_results = any(m in page for m in site["no_results_markers"])
+
+            if has_all_terms and not has_no_results:
+                note = "⚠️ MÖGLICHER TREFFER – Suchbegriffe auf der Seite gefunden, bitte prüfen!"
+            elif has_no_results:
+                note = "keine Treffer auf der Suchseite (trotzdem Link zum Nachschauen)"
+        except requests.RequestException as e:
+            print(f"[{site['name']}] Abruf fehlgeschlagen: {e}", file=sys.stderr)
+            note = "Automatik-Abruf fehlgeschlagen – Link manuell prüfen"
+
+        hits.append(
+            Hit(
+                source=site["name"],
+                title=f"{site['name']} – Suche „{site['query']}“",
+                url=search_url,
+                note=note,
+            )
+        )
     return hits
 
 
@@ -340,6 +423,7 @@ def main() -> None:
     all_hits += search_reverb()
     all_hits += search_ebay()
     all_hits += search_shopify_shops()
+    all_hits += search_generic_sites()
     all_hits += check_known_dealers()
 
     new_count = sum(1 for h in all_hits if h.key() not in previous_keys)

@@ -1,11 +1,14 @@
 # Gitarren-Watch: Tony Iommi "Monkey" SG (Rechtshänder)
 
-Dieses kleine Projekt durchsucht automatisch täglich:
+Dieses kleine Projekt durchsucht automatisch mehrmals täglich:
 
-1. **Reverb** (Marktplatz-Suche)
-2. **eBay** (Suche)
-3. Eine feste Liste bekannter Händler-Seiten (Music Zoo, Walt Grace Vintage,
-   Chicago Music Exchange, Peach Guitars – kannst du beliebig erweitern)
+1. **Reverb** (Marktplatz-Suche, international)
+2. **eBay** (US + Deutschland)
+3. **Shopify-Läden** (Music Zoo, Willcutt, Tone Shop, Walt Grace,
+   Chicago Music Exchange – findet auch neue Angebote)
+4. **Feste Händler-Seiten** (z. B. Peach Guitars)
+5. **Große Plattformen** (Thomann, Music Store, Catawiki): grober
+   Treffer-Check plus fertiger Such-Link zum selbst Nachschauen
 
 ...nach der Gibson Custom Shop Tony Iommi "Monkey" SG (Rechtshänder) und
 schreibt die Treffer in `results.md`. Neue Treffer seit dem letzten Lauf
@@ -98,18 +101,16 @@ das.
 
 ## Zeitplan ändern
 
-Standardmäßig läuft die Suche **täglich um 07:00 UTC**. Wenn du das
-ändern willst: Datei `.github/workflows/watch.yml` öffnen, Zeile
+Standardmäßig läuft die Suche **3× täglich** (04:00 / 10:00 / 16:00 UTC,
+also im Sommer ca. 06:00 / 12:00 / 18:00 deutscher Zeit). Wenn du das
+ändern willst: Datei `.github/workflows/watch.yml` öffnen und die
+`cron`-Zeilen anpassen. Format: `Minute Stunde Tag Monat Wochentag`
+(UTC-Zeit, nicht deutsche Zeit!). Jede `- cron:`-Zeile ist ein eigener
+Startzeitpunkt; mehr Zeilen = häufiger.
 
-```yaml
-- cron: "0 7 * * *"
-```
-
-anpassen. Format: `Minute Stunde Tag Monat Wochentag` (UTC-Zeit, nicht
-deutsche Zeit!). Beispiele:
-
-- `"0 */6 * * *"` → alle 6 Stunden
-- `"0 7,19 * * *"` → zweimal täglich, 7 Uhr und 19 Uhr UTC
+Hinweis zur Fairness gegenüber den Seiten: 3× täglich ist völlig
+unkritisch. Bei sehr hoher Frequenz (viele Male pro Stunde) könnten
+Plattformen deine IP zeitweise sperren.
 
 ---
 

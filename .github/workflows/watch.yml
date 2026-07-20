@@ -2,8 +2,9 @@ name: Guitar Watch
 
 on:
   schedule:
-    # Läuft täglich um 07:00 UTC (≈ 08:00/09:00 deutscher Zeit, je nach Sommerzeit).
-    # Format: Minute Stunde Tag Monat Wochentag
+    # Läuft 3x täglich. Zeiten sind in UTC angegeben.
+    # 04:00 / 10:00 / 16:00 UTC entsprechen im Sommer (CEST)
+    # ca. 06:00 / 12:00 / 18:00 deutscher Zeit (im Winter eine Stunde früher).
     - cron: "0 4 * * *"
     - cron: "0 10 * * *"
     - cron: "0 16 * * *"
@@ -33,6 +34,8 @@ jobs:
 
       - name: Skript ausführen
         run: python guitar_watch.py
+        env:
+          REVERB_TOKEN: ${{ secrets.REVERB_TOKEN }}
 
       - name: Ergebnisse committen (falls es Änderungen gibt)
         run: |

@@ -1,6 +1,6 @@
 # Gitarren-Watch – Ergebnisse
 
-Letzter Lauf: 2026-09-11 18:51 UTC
+Letzter Lauf: 2026-09-12 08:15 UTC
 
 ## 2020 Gibson USA Custom Shop Tony Iommi 1964 SG Special Monkey Guitar Black Sabbath - SIGNED
 - Quelle: Reverb
@@ -8,17 +8,17 @@ Letzter Lauf: 2026-09-11 18:51 UTC
 - Hinweis: verfügbar
 - Link: https://reverb.com/item/98880754-2020-gibson-usa-custom-shop-tony-iommi-1964-sg-special-monkey-guitar-black-sabbath-signed
 
-## Gibson SG Signature Tony Iommi "Monkey" Aged & Signed Lefthand- Cherry
-- Quelle: Reverb
-- Preis: ≈ 22.080 € (Original: 24.000 USD)
-- Hinweis: verfügbar
-- Link: https://reverb.com/item/96802370-gibson-sg-signature-tony-iommi-monkey-aged-signed-lefthand-cherry
-
 ## Gibson SG Signature Tony Iommi "Monkey" Aged & Signed - Cherry
 - Quelle: Reverb
 - Preis: ≈ 25.760 € (Original: 28.000 USD)
 - Hinweis: verfügbar
 - Link: https://reverb.com/item/96801925-gibson-sg-signature-tony-iommi-monkey-aged-signed-cherry
+
+## Gibson SG Signature Tony Iommi "Monkey" Aged & Signed Lefthand- Cherry
+- Quelle: Reverb
+- Preis: ≈ 22.080 € (Original: 24.000 USD)
+- Hinweis: verfügbar
+- Link: https://reverb.com/item/96802370-gibson-sg-signature-tony-iommi-monkey-aged-signed-lefthand-cherry
 
 ## Gibson Custom Shop Tony Iommi Signature "Monkey" '64 SG Special Left-Handed (Aged, Signed) 2020 - Cherry
 - Quelle: Reverb
@@ -40,13 +40,13 @@ Letzter Lauf: 2026-09-11 18:51 UTC
 
 ## Gibson Custom Shop “Monkey SG” Tony Iommi Aged & Signed Left-Handed LH Only 25 Made Lefty
 - Quelle: Reverb
-- Preis: ≈ 19.976 € (Original: 21.713 USD)
+- Preis: ≈ 19.945 € (Original: 21.679 USD)
 - Hinweis: verfügbar
 - Link: https://reverb.com/item/97657416-gibson-custom-shop-monkey-sg-tony-iommi-aged-signed-left-handed-lh-only-25-made-lefty
 
 ## Gibson Tony Iommi "Monkey" 1964 SG Special #18 LH (***Second Hand***)
 - Quelle: Reverb
-- Preis: ≈ 21.092 € (Original: 22.926 USD)
+- Preis: ≈ 21.059 € (Original: 22.890 USD)
 - Hinweis: verfügbar
 - Link: https://reverb.com/item/74010126-gibson-tony-iommi-monkey-1964-sg-special-18-lh-second-hand
 
@@ -54,25 +54,25 @@ Letzter Lauf: 2026-09-11 18:51 UTC
 - Quelle: The Music Zoo
 - Preis: ≈ 12.419 € (Original: 13.499 USD)
 - Hinweis: nicht verfügbar
-- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=dce401c6a&_ss=e
+- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=3e6985516&_ss=e
 
 ## 🆕 Gibson Custom Shop Tony Iommi Monkey 1964 SG Special Replica Aged and Signed
 - Quelle: The Music Zoo
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=dce401c6a&_ss=e
+- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=3e6985516&_ss=e
 
 ## 🆕 Gibson Tony Iommi "Monkey" 1964 SG Special Replica Left Handed Electric Guitar - Aged Cherry
 - Quelle: Walt Grace Vintage
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-left-handed?_pos=1&_psq=iommi+monkey&_psid=272e9169f&_ss=e
+- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-left-handed?_pos=1&_psq=iommi+monkey&_psid=109ef818b&_ss=e
 
 ## 🆕 Gibson Tony Iommi "Monkey" 1964 SG Special Replica Right Handed Electric Guitar - Aged Cherry
 - Quelle: Walt Grace Vintage
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-right-handed?_pos=2&_psq=iommi+monkey&_psid=272e9169f&_ss=e
+- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-right-handed?_pos=2&_psq=iommi+monkey&_psid=109ef818b&_ss=e
 
 ## Thomann – Suche „Iommi Monkey“
 - Quelle: Thomann

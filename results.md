@@ -1,6 +1,6 @@
 # Gitarren-Watch – Ergebnisse
 
-Letzter Lauf: 2026-09-13 13:59 UTC
+Letzter Lauf: 2026-09-13 18:24 UTC
 
 ## 2020 Gibson USA Custom Shop Tony Iommi 1964 SG Special Monkey Guitar Black Sabbath - SIGNED
 - Quelle: Reverb
@@ -54,25 +54,25 @@ Letzter Lauf: 2026-09-13 13:59 UTC
 - Quelle: The Music Zoo
 - Preis: ≈ 12.419 € (Original: 13.499 USD)
 - Hinweis: nicht verfügbar
-- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=54ebcf759&_ss=e
+- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=dd76688a8&_ss=e
 
 ## 🆕 Gibson Custom Shop Tony Iommi Monkey 1964 SG Special Replica Aged and Signed
 - Quelle: The Music Zoo
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=54ebcf759&_ss=e
+- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=dd76688a8&_ss=e
 
-## Gibson Tony Iommi "Monkey" 1964 SG Special Replica Left Handed Electric Guitar - Aged Cherry
+## 🆕 Gibson Tony Iommi "Monkey" 1964 SG Special Replica Left Handed Electric Guitar - Aged Cherry
 - Quelle: Walt Grace Vintage
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-left-handed?_pos=1&_psq=iommi+monkey&_psid=dfa7757be&_ss=e
+- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-left-handed?_pos=1&_psq=iommi+monkey&_psid=a371256ff&_ss=e
 
-## Gibson Tony Iommi "Monkey" 1964 SG Special Replica Right Handed Electric Guitar - Aged Cherry
+## 🆕 Gibson Tony Iommi "Monkey" 1964 SG Special Replica Right Handed Electric Guitar - Aged Cherry
 - Quelle: Walt Grace Vintage
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-right-handed?_pos=2&_psq=iommi+monkey&_psid=dfa7757be&_ss=e
+- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-right-handed?_pos=2&_psq=iommi+monkey&_psid=a371256ff&_ss=e
 
 ## Thomann – Suche „Iommi Monkey“
 - Quelle: Thomann

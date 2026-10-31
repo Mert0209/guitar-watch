@@ -1,6 +1,6 @@
 # Gitarren-Watch – Ergebnisse
 
-Letzter Lauf: 2026-10-31 10:04 UTC
+Letzter Lauf: 2026-10-31 15:33 UTC
 
 ## 2020 Gibson USA Custom Shop Tony Iommi 1964 SG Special Monkey Guitar Black Sabbath - SIGNED
 - Quelle: Reverb
@@ -8,17 +8,17 @@ Letzter Lauf: 2026-10-31 10:04 UTC
 - Hinweis: verfügbar
 - Link: https://reverb.com/item/98880754-2020-gibson-usa-custom-shop-tony-iommi-1964-sg-special-monkey-guitar-black-sabbath-signed
 
-## Gibson SG Signature Tony Iommi "Monkey" Aged & Signed - Cherry
-- Quelle: Reverb
-- Preis: ≈ 25.760 € (Original: 28.000 USD)
-- Hinweis: verfügbar
-- Link: https://reverb.com/item/96801925-gibson-sg-signature-tony-iommi-monkey-aged-signed-cherry
-
 ## Gibson SG Signature Tony Iommi "Monkey" Aged & Signed Lefthand- Cherry
 - Quelle: Reverb
 - Preis: ≈ 22.080 € (Original: 24.000 USD)
 - Hinweis: verfügbar
 - Link: https://reverb.com/item/96802370-gibson-sg-signature-tony-iommi-monkey-aged-signed-lefthand-cherry
+
+## Gibson SG Signature Tony Iommi "Monkey" Aged & Signed - Cherry
+- Quelle: Reverb
+- Preis: ≈ 25.760 € (Original: 28.000 USD)
+- Hinweis: verfügbar
+- Link: https://reverb.com/item/96801925-gibson-sg-signature-tony-iommi-monkey-aged-signed-cherry
 
 ## Gibson Custom Shop Ltd Ed Tony Iommi "Monkey" 1964 SG Special, Left-Handed, 1754XXXX
 - Quelle: Reverb
@@ -54,37 +54,37 @@ Letzter Lauf: 2026-10-31 10:04 UTC
 - Quelle: The Music Zoo
 - Preis: ≈ 12.419 € (Original: 13.499 USD)
 - Hinweis: nicht verfügbar
-- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=14b40e66a&_ss=e
+- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=ccb7dfea1&_ss=e
 
 ## 🆕 Gibson Custom Shop Tony Iommi Monkey 1964 SG Special Replica Aged and Signed
 - Quelle: The Music Zoo
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=14b40e66a&_ss=e
+- Link: https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=ccb7dfea1&_ss=e
 
 ## 🆕 Gibson Tony Iommi "Monkey" 1964 SG Special Replica Left Handed Electric Guitar - Aged Cherry
 - Quelle: Walt Grace Vintage
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-left-handed?_pos=1&_psq=iommi+monkey&_psid=2ff8561c8&_ss=e
+- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-left-handed?_pos=1&_psq=iommi+monkey&_psid=50b089e42&_ss=e
 
 ## 🆕 Gibson Tony Iommi "Monkey" 1964 SG Special Replica Right Handed Electric Guitar - Aged Cherry
 - Quelle: Walt Grace Vintage
 - Preis: ≈ 18.399 € (Original: 19.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-right-handed?_pos=2&_psq=iommi+monkey&_psid=2ff8561c8&_ss=e
+- Link: https://waltgracevintage.com/products/gibson-tony-iommy-monkey-1964-sg-special-replica-right-handed?_pos=2&_psq=iommi+monkey&_psid=50b089e42&_ss=e
 
 ## 🆕 Gibson SG Tony Iommi Signature "Monkey" RIGHTY Cherry 2020
 - Quelle: Chicago Music Exchange
 - Preis: ≈ 15.639 € (Original: 16.999 USD)
 - Hinweis: nicht verfügbar
-- Link: https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-righty-cherry-1618719?_pos=3&_psq=iommi+monkey&_psid=aa0fcdced&_ss=e
+- Link: https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-righty-cherry-1618719?_pos=3&_psq=iommi+monkey&_psid=3b137eb45&_ss=e
 
 ## 🆕 Gibson SG Tony Iommi Signature "Monkey" Cherry 2019 LEFTY
 - Quelle: Chicago Music Exchange
 - Preis: ≈ 14.306 € (Original: 15.550 USD)
 - Hinweis: nicht verfügbar
-- Link: https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-cherry-2019-1618721?_pos=4&_psq=iommi+monkey&_psid=aa0fcdced&_ss=e
+- Link: https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-cherry-2019-1618721?_pos=4&_psq=iommi+monkey&_psid=3b137eb45&_ss=e
 
 ## Thomann – Suche „Iommi Monkey“
 - Quelle: Thomann

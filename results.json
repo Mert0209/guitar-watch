@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-11-26 19:21 UTC",
+  "last_run": "2026-11-27 00:09 UTC",
   "hits": [
     {
       "source": "Reverb",
@@ -10,26 +10,6 @@
       "amount": 15964.64,
       "currency": "USD",
       "key": "Reverb|https://reverb.com/item/98880754-2020-gibson-custom-shop-tony-iommi-1964-sg-special-monkey-guitar-black-sabbath-signed"
-    },
-    {
-      "source": "Reverb",
-      "title": "Gibson SG Signature Tony Iommi \"Monkey\" Aged & Signed Lefthand- Cherry",
-      "url": "https://reverb.com/item/96802370-gibson-sg-signature-tony-iommi-monkey-aged-signed-lefthand-cherry",
-      "price": "≈ 22.080 € (Original: 24.000 USD)",
-      "note": "verfügbar",
-      "amount": 24000.0,
-      "currency": "USD",
-      "key": "Reverb|https://reverb.com/item/96802370-gibson-sg-signature-tony-iommi-monkey-aged-signed-lefthand-cherry"
-    },
-    {
-      "source": "Reverb",
-      "title": "Gibson SG Signature Tony Iommi \"Monkey\" Aged & Signed - Cherry",
-      "url": "https://reverb.com/item/96801925-gibson-sg-signature-tony-iommi-monkey-aged-signed-cherry",
-      "price": "≈ 25.760 € (Original: 28.000 USD)",
-      "note": "verfügbar",
-      "amount": 28000.0,
-      "currency": "USD",
-      "key": "Reverb|https://reverb.com/item/96801925-gibson-sg-signature-tony-iommi-monkey-aged-signed-cherry"
     },
     {
       "source": "Reverb",
@@ -50,6 +30,26 @@
       "amount": 24999.0,
       "currency": "USD",
       "key": "Reverb|https://reverb.com/item/87832719-gibson-custom-shop-ltd-ed-tony-iommi-monkey-1964-sg-special-left-handed-1754xxxx"
+    },
+    {
+      "source": "Reverb",
+      "title": "Gibson SG Signature Tony Iommi \"Monkey\" Aged & Signed Lefthand- Cherry",
+      "url": "https://reverb.com/item/96802370-gibson-sg-signature-tony-iommi-monkey-aged-signed-lefthand-cherry",
+      "price": "≈ 22.080 € (Original: 24.000 USD)",
+      "note": "verfügbar",
+      "amount": 24000.0,
+      "currency": "USD",
+      "key": "Reverb|https://reverb.com/item/96802370-gibson-sg-signature-tony-iommi-monkey-aged-signed-lefthand-cherry"
+    },
+    {
+      "source": "Reverb",
+      "title": "Gibson SG Signature Tony Iommi \"Monkey\" Aged & Signed - Cherry",
+      "url": "https://reverb.com/item/96801925-gibson-sg-signature-tony-iommi-monkey-aged-signed-cherry",
+      "price": "≈ 25.760 € (Original: 28.000 USD)",
+      "note": "verfügbar",
+      "amount": 28000.0,
+      "currency": "USD",
+      "key": "Reverb|https://reverb.com/item/96801925-gibson-sg-signature-tony-iommi-monkey-aged-signed-cherry"
     },
     {
       "source": "Reverb",
@@ -94,22 +94,22 @@
     {
       "source": "The Music Zoo",
       "title": "Gibson Custom Shop Tony Iommi Monkey 1964 SG Special Replica Left-Handed Aged and Signed  Used",
-      "url": "https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=9081e22d9&_ss=e",
+      "url": "https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=460b341e9&_ss=e",
       "price": "≈ 12.419 € (Original: 13.499 USD)",
       "note": "nicht verfügbar",
       "amount": 13499.0,
       "currency": "USD",
-      "key": "The Music Zoo|https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=9081e22d9&_ss=e"
+      "key": "The Music Zoo|https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-left-handed-aged-and-signed?_pos=1&_psq=iommi+monkey&_psid=460b341e9&_ss=e"
     },
     {
       "source": "The Music Zoo",
       "title": "Gibson Custom Shop Tony Iommi Monkey 1964 SG Special Replica Aged and Signed",
-      "url": "https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=9081e22d9&_ss=e",
+      "url": "https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=460b341e9&_ss=e",
       "price": "≈ 18.399 € (Original: 19.999 USD)",
       "note": "nicht verfügbar",
       "amount": 19999.0,
       "currency": "USD",
-      "key": "The Music Zoo|https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=9081e22d9&_ss=e"
+      "key": "The Music Zoo|https://www.themusiczoo.com/products/gibson-custom-shop-tony-iommi-monkey-1964-sg-special-replica-aged-and-signed?_pos=2&_psq=iommi+monkey&_psid=460b341e9&_ss=e"
     },
     {
       "source": "Walt Grace Vintage",
@@ -134,22 +134,22 @@
     {
       "source": "Chicago Music Exchange",
       "title": "Gibson SG Tony Iommi Signature \"Monkey\" Cherry 2019 LEFTY",
-      "url": "https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-cherry-2019-1618721?_pos=3&_psq=iommi+monkey&_psid=c0952f894&_ss=e",
+      "url": "https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-cherry-2019-1618721?_pos=3&_psq=iommi+monkey&_psid=435ef18e8&_ss=e",
       "price": "≈ 14.306 € (Original: 15.550 USD)",
       "note": "nicht verfügbar",
       "amount": 15550.0,
       "currency": "USD",
-      "key": "Chicago Music Exchange|https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-cherry-2019-1618721?_pos=3&_psq=iommi+monkey&_psid=c0952f894&_ss=e"
+      "key": "Chicago Music Exchange|https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-cherry-2019-1618721?_pos=3&_psq=iommi+monkey&_psid=435ef18e8&_ss=e"
     },
     {
       "source": "Chicago Music Exchange",
       "title": "Gibson SG Tony Iommi Signature \"Monkey\" RIGHTY Cherry 2020",
-      "url": "https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-righty-cherry-1618719?_pos=4&_psq=iommi+monkey&_psid=c0952f894&_ss=e",
+      "url": "https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-righty-cherry-1618719?_pos=4&_psq=iommi+monkey&_psid=435ef18e8&_ss=e",
       "price": "≈ 15.639 € (Original: 16.999 USD)",
       "note": "nicht verfügbar",
       "amount": 16999.0,
       "currency": "USD",
-      "key": "Chicago Music Exchange|https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-righty-cherry-1618719?_pos=4&_psq=iommi+monkey&_psid=c0952f894&_ss=e"
+      "key": "Chicago Music Exchange|https://www.chicagomusicexchange.com/products/gibson-sg-tony-iommi-signature-monkey-righty-cherry-1618719?_pos=4&_psq=iommi+monkey&_psid=435ef18e8&_ss=e"
     },
     {
       "source": "Thomann",
